@@ -11,6 +11,4 @@ public class ArtistaDto {
 
     private String nombreArtista;
 
-    private List<UUID> listaDeCanciones = new ArrayList<>();
-
 }
