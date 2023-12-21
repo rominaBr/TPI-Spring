@@ -8,10 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -26,6 +25,15 @@ public class ArtistaController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new RespuestaDto(ConstantsUtils.STATUS_201, ConstantsUtils.MESSAGE_201));
+    }
+
+    @GetMapping("/{idArtista}")
+    public ResponseEntity<ArtistaDto> buscarArtistaPorId(@PathVariable(name="idArtista")UUID idArtista){
+        ArtistaDto artistaDto = artistaService.buscarArtistaPorId(idArtista);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(artistaDto);
     }
 
 

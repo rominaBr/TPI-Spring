@@ -19,4 +19,6 @@ public class CancionDto {
 
     private GeneroDto generoDto;
 
+    private String album;
+
 }

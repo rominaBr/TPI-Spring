@@ -2,8 +2,9 @@ package com.informatorio.streamingMusic.service.artista.impl;
 
 import com.informatorio.streamingMusic.dominio.Artista;
 import com.informatorio.streamingMusic.dto.artista.ArtistaDto;
+import com.informatorio.streamingMusic.exception.NotFoundException;
 import com.informatorio.streamingMusic.mapper.artista.ArtistaMapper;
-import com.informatorio.streamingMusic.repository.artista.IArtistaRepository;
+import com.informatorio.streamingMusic.repository.artista.ArtistaRepository;
 import com.informatorio.streamingMusic.service.artista.ArtistaService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class ArtistaServiceImpl implements ArtistaService {
 
-    private final IArtistaRepository artistaRepository;
+    private final ArtistaRepository artistaRepository;
     @Override
     public void crearArtista(ArtistaDto artistaDto) {
 
@@ -26,5 +27,15 @@ public class ArtistaServiceImpl implements ArtistaService {
 
         artistaRepository.save(nuevoArtista);
 
+    }
+
+    @Override
+    public ArtistaDto buscarArtistaPorId(UUID idArtista) {
+        Artista artista = artistaRepository.findById(idArtista)
+                .orElseThrow(()-> new NotFoundException("Artista", "idArtista",idArtista.toString()));
+
+        ArtistaDto artistaDto = ArtistaMapper.mapToArtistaDto(artista, new ArtistaDto());
+
+        return artistaDto;
     }
 }

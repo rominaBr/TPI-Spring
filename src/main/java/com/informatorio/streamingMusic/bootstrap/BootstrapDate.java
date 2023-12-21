@@ -1,30 +1,31 @@
 package com.informatorio.streamingMusic.bootstrap;
 
 import com.informatorio.streamingMusic.dominio.*;
-import com.informatorio.streamingMusic.repository.artista.IArtistaRepository;
-import com.informatorio.streamingMusic.repository.cancion.ICancionRepository;
-import com.informatorio.streamingMusic.repository.genero.IGeneroRepository;
-import com.informatorio.streamingMusic.repository.listadereproduccion.IListaDeReproduccionRepository;
-import com.informatorio.streamingMusic.repository.usuario.IUsuarioRepository;
+import com.informatorio.streamingMusic.repository.artista.ArtistaRepository;
+import com.informatorio.streamingMusic.repository.cancion.CancionRepository;
+import com.informatorio.streamingMusic.repository.genero.GeneroRepository;
+import com.informatorio.streamingMusic.repository.listadereproduccion.ListaDeReproduccionRepository;
+import com.informatorio.streamingMusic.repository.usuario.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Component
 @AllArgsConstructor
 public class BootstrapDate implements CommandLineRunner {
 
-    private IUsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
-    private IArtistaRepository artistaRepository;
+    private ArtistaRepository artistaRepository;
 
-    private ICancionRepository cancionRepository;
+    private CancionRepository cancionRepository;
 
-    private IGeneroRepository generoRepository;
+    private GeneroRepository generoRepository;
 
-    private IListaDeReproduccionRepository listaDeReproduccionRepository;
+    private ListaDeReproduccionRepository listaDeReproduccionRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -32,7 +33,7 @@ public class BootstrapDate implements CommandLineRunner {
         cargarGeneros();
         cargarCanciones();
         cargarUsuario();
-        cargarListasReproduccion();
+        cargarListaReproduccion();
     }
 
     void cargarArtistas(){
@@ -81,23 +82,57 @@ public class BootstrapDate implements CommandLineRunner {
         cancion2.setIdCancion(UUID.randomUUID());
         cancion2.setNombreCancion("Pet Sematary");
         cancion2.setDuracion(3.29);
-        cancion2.setRanking(5);
+        cancion2.setRanking(10);
         cancion2.setAlbum("Brain Drain");
         cancion2.setArtista(artistaRepository.findAll().get(0));
         cancion2.setGenero(generoRepository.findAll().get(1));
 
         cancionRepository.save(cancion2);
 
+        Cancion cancion3 = new Cancion();
+        cancion3.setIdCancion(UUID.randomUUID());
+        cancion3.setNombreCancion("Blitzkrieg Bop");
+        cancion3.setDuracion(2.14);
+        cancion3.setRanking(7);
+        cancion3.setAlbum("Ramones");
+        cancion3.setArtista(artistaRepository.findAll().get(0));
+        cancion3.setGenero(generoRepository.findAll().get(1));
+
+        cancionRepository.save(cancion3);
+
+        Cancion cancion4 = new Cancion();
+        cancion4.setIdCancion(UUID.randomUUID());
+        cancion4.setNombreCancion("Judy is punk");
+        cancion4.setDuracion(2.14);
+        cancion4.setRanking(8);
+        cancion4.setAlbum("Ramones");
+        cancion4.setArtista(artistaRepository.findAll().get(0));
+        cancion4.setGenero(generoRepository.findAll().get(1));
+
+        cancionRepository.save(cancion4);
+
     }
 
-    void cargarListasReproduccion(){
-        ListaDeReproduccion listaDeReproduccion = new ListaDeReproduccion();
-        listaDeReproduccion.setIdLista(UUID.randomUUID());
-        listaDeReproduccion.setNombreLista("Clásicos");
-        listaDeReproduccion.setListaDeCanciones(cancionRepository.findAll());
-        listaDeReproduccion.setUsuario(usuarioRepository.findAll().get(0));
+    void cargarListaReproduccion(){
+        ListaDeReproduccion listaDeReproduccion1 = new ListaDeReproduccion();
+        listaDeReproduccion1.setIdLista(UUID.randomUUID());
+        listaDeReproduccion1.setNombreLista("Clasicos");
+        listaDeReproduccion1.setCreadoEn(LocalDateTime.now());
+        listaDeReproduccion1.setPublica(true);
+        listaDeReproduccion1.setListaDeCanciones(cancionRepository.findAll());
+        listaDeReproduccion1.setUsuario(usuarioRepository.findAll().get(0));
 
-        listaDeReproduccionRepository.save(listaDeReproduccion);
+        listaDeReproduccionRepository.save(listaDeReproduccion1);
+
+        ListaDeReproduccion listaDeReproduccion2 = new ListaDeReproduccion();
+        listaDeReproduccion2.setIdLista(UUID.randomUUID());
+        listaDeReproduccion2.setNombreLista("80's");
+        listaDeReproduccion2.setCreadoEn(LocalDateTime.now());
+        listaDeReproduccion2.setListaDeCanciones(cancionRepository.findAll());
+        listaDeReproduccion2.setUsuario(usuarioRepository.findAll().get(0));
+
+        listaDeReproduccionRepository.save(listaDeReproduccion2);
+
     }
 
     void cargarUsuario(){

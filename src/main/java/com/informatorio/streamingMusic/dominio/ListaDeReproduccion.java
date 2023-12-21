@@ -27,7 +27,7 @@ public class ListaDeReproduccion extends EntidadBase{
     @Column(length = 36,columnDefinition = "varchar(36)",updatable = false,nullable = false)
     private UUID idLista;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nombreLista;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
