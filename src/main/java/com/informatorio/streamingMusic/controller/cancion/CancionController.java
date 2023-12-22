@@ -49,7 +49,7 @@ public class CancionController {
         }
     }
 
-    @DeleteMapping
+    @PutMapping("/lista")
     public ResponseEntity<RespuestaDto> eliminarCancionDeLista(
             @RequestParam(name="idLista") UUID idLista,
             @RequestParam(name="idCancion") UUID idCancion

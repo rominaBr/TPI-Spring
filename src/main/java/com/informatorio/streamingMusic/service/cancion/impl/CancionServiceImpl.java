@@ -91,13 +91,16 @@ public class CancionServiceImpl implements CancionService {
     public boolean eliminarCancionDeLista(UUID idLista, UUID idCancion) {
         ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idLista)
                 .orElseThrow(()-> new NotFoundException("ListaDeReproduccion","idLista",idLista.toString()));
+        List<Cancion> listaDeCanciones = listaDeReproduccion.getListaDeCanciones();
 
-        for(Cancion cancion: listaDeReproduccion.getListaDeCanciones()){
+        for(Cancion cancion: listaDeCanciones){
             if(cancion.getIdCancion().equals(idCancion)){
-                cancionRepository.delete(cancion);
+                listaDeCanciones.remove(cancion);
+                listaDeReproduccionRepository.save(listaDeReproduccion);
+                return Boolean.TRUE;
             }
         }
-        return Boolean.TRUE;
+        return Boolean.FALSE;
     }
 
 
