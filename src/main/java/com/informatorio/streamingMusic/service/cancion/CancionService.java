@@ -18,6 +18,5 @@ public interface CancionService {
 
     List<CancionDto> buscarCancionPorArtistaOrdenadaPorRanking(String artista);
 
-
-
+    List<CancionDto> buscarCancionesAleatorias(String titulo, String genero, String artista, String album);
 }

@@ -33,6 +33,16 @@ public class CancionController {
         return cancionService.buscarCancionPorArtistaOrdenadaPorRanking(artista);
     }
 
+    @GetMapping
+    public List<CancionDto> buscarCancionesAleatorias(
+            @RequestParam(name="titulo", required = false) String titulo,
+            @RequestParam(name="genero", required = false) String genero,
+            @RequestParam(name="artista", required = false) String artista,
+            @RequestParam(name="album", required = false) String album){
+
+        return cancionService.buscarCancionesAleatorias(titulo, genero, artista,album);
+    }
+
     //cambiar
     @GetMapping("/album/{album}")
     public List<CancionDto> buscarCancionPorAlbum(@PathVariable(name = "album")String album){

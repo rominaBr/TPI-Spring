@@ -10,10 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -89,6 +86,13 @@ public class CancionServiceImpl implements CancionService {
 
         return CancionMapper.mapToCancionesDto(cancionRepository.buscarCancionPorArtistaOrdenadaPorRanking(artista), new ArrayList<>());
 
+    }
+
+    @Override
+    public List<CancionDto> buscarCancionesAleatorias(String titulo, String genero, String artista, String album) {
+        List<Cancion> cancionesAleatorias = cancionRepository.buscarCancionesAleatorias(titulo, genero, artista, album);
+        Collections.shuffle(cancionesAleatorias);
+        return  CancionMapper.mapToCancionesDto(cancionesAleatorias, new ArrayList<>());
     }
 
 
