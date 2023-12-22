@@ -16,4 +16,10 @@ public class ListaDeReproduccionDto {
 
     private int cantidadCanciones;
 
+    private boolean repetir;
+
+    private boolean aleatoria;
+
+    private boolean publica;
+
 }

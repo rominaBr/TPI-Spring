@@ -11,6 +11,9 @@ public class ListaDeReproduccionMapper {
     public static ListaDeReproduccion mapToListaDeReproduccion(ListaDeReproduccionDto listaDeReproduccionDto, ListaDeReproduccion listaDeReproduccion){
         listaDeReproduccion.setNombreLista(listaDeReproduccionDto.getNombreLista());
         listaDeReproduccion.setIdLista(listaDeReproduccionDto.getIdLista());
+        listaDeReproduccion.setRepetir(listaDeReproduccionDto.isRepetir());
+        listaDeReproduccion.setAleatoria(listaDeReproduccionDto.isAleatoria());
+        listaDeReproduccion.setPublica(listaDeReproduccionDto.isPublica());
 
         return listaDeReproduccion;
     }
@@ -19,6 +22,9 @@ public class ListaDeReproduccionMapper {
         listaDeReproduccionDto.setIdLista(listaDeReproduccion.getIdLista());
         listaDeReproduccionDto.setNombreLista(listaDeReproduccion.getNombreLista());
         listaDeReproduccionDto.setCantidadCanciones(listaDeReproduccion.getListaDeCanciones().size());
+        listaDeReproduccionDto.setRepetir(listaDeReproduccionDto.isRepetir());
+        listaDeReproduccionDto.setAleatoria(listaDeReproduccionDto.isAleatoria());
+        listaDeReproduccionDto.setPublica(listaDeReproduccionDto.isPublica());
 
         return listaDeReproduccionDto;
     }
