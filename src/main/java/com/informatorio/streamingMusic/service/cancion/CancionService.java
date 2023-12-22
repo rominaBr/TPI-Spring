@@ -19,4 +19,6 @@ public interface CancionService {
 
     boolean agregarCacionesALista(UUID idLista, List<CancionDto> canciones);
     List<CancionDto> listarCancionesPorIdLista(UUID idLIsta);
+
+    boolean eliminarCancionDeLista(UUID idLista, UUID idCancion);
 }

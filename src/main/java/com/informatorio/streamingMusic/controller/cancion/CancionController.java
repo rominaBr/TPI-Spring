@@ -3,6 +3,7 @@ package com.informatorio.streamingMusic.controller.cancion;
 import com.informatorio.streamingMusic.constantes.ConstantsUtils;
 import com.informatorio.streamingMusic.dto.cancion.CancionDto;
 import com.informatorio.streamingMusic.dto.respuesta.RespuestaDto;
+import com.informatorio.streamingMusic.repository.listadereproduccion.ListaDeReproduccionRepository;
 import com.informatorio.streamingMusic.service.cancion.CancionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,6 +39,24 @@ public class CancionController {
         boolean fueActualizado = cancionService.agregarCacionesALista(idLista, cancionDto);
 
         if (fueActualizado){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new RespuestaDto(ConstantsUtils.STATUS_200,ConstantsUtils.MESSAGE_200));
+        }else {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new RespuestaDto(ConstantsUtils.STATUS_500,ConstantsUtils.MESSAGE_500));
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<RespuestaDto> eliminarCancionDeLista(
+            @RequestParam(name="idLista") UUID idLista,
+            @RequestParam(name="idCacion") UUID idCancion
+    ){
+        boolean fueEliminado = cancionService.eliminarCancionDeLista(idLista, idCancion);
+
+        if (fueEliminado){
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(new RespuestaDto(ConstantsUtils.STATUS_200,ConstantsUtils.MESSAGE_200));
