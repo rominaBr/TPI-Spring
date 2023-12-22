@@ -15,7 +15,9 @@ public interface ListaDeReproduccionService {
     List<ListaDeReproduccionDto> buscarListaDeReproduccionPorNombre(String nombre);
 
 
-    void crearListasDeReproduccionParaUsuario(UUID idUsuario, String nombreLista);
+    void agregarListaDeReproduccion(UUID idUsusario, ListaDeReproduccionDto listaDeReproduccionDto);
 
     List<ListaDeReproduccionDto> listarListasPorUsuario(UUID idUsuario);
+
+    void actualizarListaDeReproduccion(ListaDeReproduccionDto listaDeReproduccionDto);
 }

@@ -34,12 +34,11 @@ public class ListaDeReproduccionController {
         return listaDeReproduccionService.listarListasPorUsuario(idUsuario);
     }
 
-    @PostMapping("{idUsuario}")
-    public ResponseEntity<RespuestaDto> crearListasDeReproduccionParaUsuario(
-            @PathVariable(name="idUsuario")UUID idUsuario,
-            @RequestParam(name="nombreLista")String nombreLista){
-
-        listaDeReproduccionService.crearListasDeReproduccionParaUsuario(idUsuario, nombreLista);
+    @PutMapping("{idUsuario}")
+    public ResponseEntity<RespuestaDto> agregarListaDeReproduccion(
+            @PathVariable(name="idUsuario")UUID idLista,
+            @RequestBody ListaDeReproduccionDto listaDeReproduccionDto){
+        listaDeReproduccionService.agregarListaDeReproduccion(idLista, listaDeReproduccionDto);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)

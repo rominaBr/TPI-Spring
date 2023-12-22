@@ -5,6 +5,7 @@ import com.informatorio.streamingMusic.dominio.ListaDeReproduccion;
 import com.informatorio.streamingMusic.dominio.Usuario;
 import com.informatorio.streamingMusic.dto.cancion.CancionDto;
 import com.informatorio.streamingMusic.dto.listadereproduccion.ListaDeReproduccionDto;
+import com.informatorio.streamingMusic.exception.NotFoundException;
 import com.informatorio.streamingMusic.mapper.cancion.CancionMapper;
 import com.informatorio.streamingMusic.mapper.listadereproduccion.ListaDeReproduccionMapper;
 import com.informatorio.streamingMusic.repository.listadereproduccion.ListaDeReproduccionRepository;
@@ -47,22 +48,24 @@ public class ListaDeReproduccionServiceImpl implements ListaDeReproduccionServic
     }
 
     @Override
-    public void crearListasDeReproduccionParaUsuario(UUID idUsuario, String nombreLista) {
-        Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
+    public void agregarListaDeReproduccion(UUID idUsuario, ListaDeReproduccionDto listaDeReproduccionDto) {
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(()-> new NotFoundException("Usurio","idUsuario", idUsuario.toString()));
 
-        ListaDeReproduccion nuevaListaDeReproduccion = new ListaDeReproduccion();
-        nuevaListaDeReproduccion.setNombreLista(nombreLista);
-        nuevaListaDeReproduccion.setUsuario(usuario.get());
-        nuevaListaDeReproduccion.setCreadoPor(usuario.get().getNombre());
-        nuevaListaDeReproduccion.setCreadoEn(LocalDateTime.now());
-
-        listaDeReproduccionRepository.save(nuevaListaDeReproduccion);
-        usuario.get().getListasDeReproduccion().add(nuevaListaDeReproduccion);
-        usuarioRepository.save(usuario.get());
+        actualizarListaDeReproduccion(listaDeReproduccionDto);
+        usuario.getListasDeReproduccion().add(ListaDeReproduccionMapper.mapToListaDeReproduccion(listaDeReproduccionDto, new ListaDeReproduccion()));
+        usuarioRepository.save(usuario);
     }
 
     @Override
     public List<ListaDeReproduccionDto> listarListasPorUsuario(UUID idUsuario) {
         return ListaDeReproduccionMapper.mapToListasDeReproduccionDto(listaDeReproduccionRepository.listarListasPorUsuario(idUsuario), new ArrayList<>());
+    }
+
+    @Override
+    public void actualizarListaDeReproduccion(ListaDeReproduccionDto listaDeReproduccionDto) {
+
+        listaDeReproduccionRepository.save(ListaDeReproduccionMapper.mapToListaDeReproduccion(listaDeReproduccionDto, new ListaDeReproduccion()));
+
     }
 }
