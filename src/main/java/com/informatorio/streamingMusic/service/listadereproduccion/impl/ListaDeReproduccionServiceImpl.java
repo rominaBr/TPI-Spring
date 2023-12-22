@@ -53,7 +53,12 @@ public class ListaDeReproduccionServiceImpl implements ListaDeReproduccionServic
                 .orElseThrow(()-> new NotFoundException("Usurio","idUsuario", idUsuario.toString()));
 
         actualizarListaDeReproduccion(listaDeReproduccionDto);
-        usuario.getListasDeReproduccion().add(ListaDeReproduccionMapper.mapToListaDeReproduccion(listaDeReproduccionDto, new ListaDeReproduccion()));
+        ListaDeReproduccion nuevaLista = ListaDeReproduccionMapper.mapToListaDeReproduccion(listaDeReproduccionDto, new ListaDeReproduccion());
+
+        nuevaLista.setUsuario(usuario);
+        nuevaLista.setActualizadoEn(LocalDateTime.now());
+        nuevaLista.setActualizadoPor(usuario.getNombre());
+        usuario.getListasDeReproduccion().add(nuevaLista);
         usuarioRepository.save(usuario);
     }
 
