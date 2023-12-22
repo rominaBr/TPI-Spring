@@ -40,7 +40,7 @@ public class ListaDeReproduccion extends EntidadBase{
     private boolean publica;
 
     @Column(nullable = false)
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "lista_cancion", joinColumns = @JoinColumn(name = "lista_id"),
             inverseJoinColumns = @JoinColumn(name = "cancion_id"))
     private List<Cancion> listaDeCanciones = new ArrayList<>();

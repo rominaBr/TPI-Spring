@@ -15,4 +15,10 @@ public interface ListaDeReproduccionRepository extends JpaRepository<ListaDeRepr
     @Query("SELECT l FROM ListaDeReproduccion l WHERE l.nombreLista = :nombre AND l.publica = true")
     List<ListaDeReproduccion> buscarListaDeReproduccionPorNombre(String nombre);
 
+    @Query("SELECT l FROM ListaDeReproduccion l WHERE l.usuario.idUsuario = :idUsuario ORDER BY l.creadoEn DESC")
+    List<ListaDeReproduccion> listarListasPorUsuario(UUID idUsuario);
+
+    @Query("SELECT l FROM ListaDeReproduccion l LEFT JOIN FETCH l.usuario u WHERE u.idUsuario = :idUsuario AND l.idLista = :idLista")
+    ListaDeReproduccion buscarListaPorIdYUsuario(UUID idUsuario, UUID idLista);
+
 }

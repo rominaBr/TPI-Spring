@@ -28,9 +28,6 @@ public class UsuarioController {
                 .status(HttpStatus.CREATED)
                 .body(new RespuestaDto(ConstantsUtils.STATUS_201,ConstantsUtils.MESSAGE_201));
     }
-
-
-
     @GetMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDto> obtenerUsuarioPorId(@PathVariable(name="idUsuario")UUID idUsuario){
         UsuarioDto usuarioDto = usuarioService.obtenerUsuarioPorId(idUsuario);
@@ -39,10 +36,6 @@ public class UsuarioController {
                 .body(usuarioDto);
     }
 
-    @DeleteMapping("{idUsuario}")
-    public ResponseEntity<RespuestaDto> eliminarUsuarioPorId(@PathVariable(name="idUsuario")UUID idUsuario){
 
-        return null;
-    }
 
 }

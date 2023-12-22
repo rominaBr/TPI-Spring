@@ -1,9 +1,13 @@
 package com.informatorio.streamingMusic.service.cancion.impl;
 
 import com.informatorio.streamingMusic.dominio.Cancion;
+import com.informatorio.streamingMusic.dominio.ListaDeReproduccion;
+import com.informatorio.streamingMusic.dominio.Usuario;
 import com.informatorio.streamingMusic.dto.cancion.CancionDto;
+import com.informatorio.streamingMusic.exception.NotFoundException;
 import com.informatorio.streamingMusic.mapper.cancion.CancionMapper;
 import com.informatorio.streamingMusic.repository.cancion.CancionRepository;
+import com.informatorio.streamingMusic.repository.listadereproduccion.ListaDeReproduccionRepository;
 import com.informatorio.streamingMusic.repository.usuario.UsuarioRepository;
 import com.informatorio.streamingMusic.service.cancion.CancionService;
 import lombok.AllArgsConstructor;
@@ -17,7 +21,7 @@ import java.util.*;
 public class CancionServiceImpl implements CancionService {
 
     private final CancionRepository cancionRepository;
-    private final UsuarioRepository usuarioRepository;
+    private final ListaDeReproduccionRepository listaDeReproduccionRepository;
 
     @Override
     public void crearCancion(CancionDto cancionDto) {
@@ -56,6 +60,23 @@ public class CancionServiceImpl implements CancionService {
         Collections.shuffle(cancionesAleatorias);
         return  CancionMapper.mapToCancionesDto(cancionesAleatorias, new ArrayList<>());
     }
+
+    @Override
+    public boolean agregarCacionesAListaDeUsuario(UUID idUsuario, UUID idLista, List<CancionDto> canciones) {
+        ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idLista)
+                .orElseThrow(() -> new NotFoundException("Lista", "idLista", idLista.toString()));
+
+        List<Cancion> cancionesEntidad = CancionMapper.mapToCanciones(canciones, new ArrayList<>());
+
+        cancionRepository.saveAll(cancionesEntidad);
+
+        listaDeReproduccion.getListaDeCanciones().addAll(cancionesEntidad);
+
+        listaDeReproduccionRepository.save(listaDeReproduccion);
+
+        return Boolean.TRUE;
+    }
+
 
 
 }

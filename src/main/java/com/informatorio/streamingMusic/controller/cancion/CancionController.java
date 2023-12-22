@@ -7,9 +7,11 @@ import com.informatorio.streamingMusic.service.cancion.CancionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -27,6 +29,25 @@ public class CancionController {
                 .body(new RespuestaDto(ConstantsUtils.STATUS_201, ConstantsUtils.MESSAGE_201));
     }
 
+    @Transactional
+    @PutMapping
+    public ResponseEntity<RespuestaDto> agregarCacionesAListaDeUsuario(
+            @RequestBody List<CancionDto> cancionDto,
+            @RequestParam(name="idUsuario") UUID idUsuario,
+            @RequestParam(name="idLista")UUID idLista
+            ){
+        boolean fueActualizado = cancionService.agregarCacionesAListaDeUsuario(idUsuario, idLista, cancionDto);
+
+        if (fueActualizado){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new RespuestaDto(ConstantsUtils.STATUS_200,ConstantsUtils.MESSAGE_200));
+        }else {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new RespuestaDto(ConstantsUtils.STATUS_500,ConstantsUtils.MESSAGE_500));
+        }
+    }
 
     @GetMapping("/artista/ranking/{artista}")
     public List<CancionDto> buscarCancionPorArtistaOrdenadaPorRanking(@PathVariable(name = "artista")String artista){
@@ -43,7 +64,7 @@ public class CancionController {
         return cancionService.buscarCancionesAleatorias(titulo, genero, artista,album);
     }
 
-    //cambiar
+
     @GetMapping("/album/{album}")
     public List<CancionDto> buscarCancionPorAlbum(@PathVariable(name = "album")String album){
         return cancionService.buscarCancionPorAlbum(album);

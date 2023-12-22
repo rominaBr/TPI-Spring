@@ -1,7 +1,9 @@
 package com.informatorio.streamingMusic.controller.listadereproduccion;
 
+import com.informatorio.streamingMusic.constantes.ConstantsUtils;
 import com.informatorio.streamingMusic.dominio.ListaDeReproduccion;
 import com.informatorio.streamingMusic.dto.listadereproduccion.ListaDeReproduccionDto;
+import com.informatorio.streamingMusic.dto.respuesta.RespuestaDto;
 import com.informatorio.streamingMusic.repository.listadereproduccion.ListaDeReproduccionRepository;
 import com.informatorio.streamingMusic.service.listadereproduccion.ListaDeReproduccionService;
 import lombok.AllArgsConstructor;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -25,5 +28,23 @@ public class ListaDeReproduccionController {
             @RequestParam(name = "nombre", required = false) String nombre){
         return listaDeReproduccionService.buscarListaDeReproduccionPorNombre(nombre);
     }
+
+    @GetMapping("/{idUsuario}")
+    public List<ListaDeReproduccionDto> listarListasPorUsuario(@PathVariable(name="idUsuario")UUID idUsuario){
+        return listaDeReproduccionService.listarListasPorUsuario(idUsuario);
+    }
+
+    @PostMapping("{idUsuario}")
+    public ResponseEntity<RespuestaDto> crearListasDeReproduccionParaUsuario(
+            @PathVariable(name="idUsuario")UUID idUsuario,
+            @RequestParam(name="nombreLista")String nombreLista){
+
+        listaDeReproduccionService.crearListasDeReproduccionParaUsuario(idUsuario, nombreLista);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new RespuestaDto(ConstantsUtils.STATUS_201,ConstantsUtils.MESSAGE_201));
+    }
+
 
 }
