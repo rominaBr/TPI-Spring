@@ -11,7 +11,5 @@ public interface UsuarioService {
 
     UsuarioDto obtenerUsuarioPorId(UUID idUsuario);
 
-    List<UsuarioDto> obtenerTodosLosUsuarios();
 
-    boolean eliminarUsuarioPorId(UUID idUsuario);
 }

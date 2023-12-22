@@ -35,16 +35,8 @@ public class CancionServiceImpl implements CancionService {
 
 
     @Override
-    public List<CancionDto> buscarCancionPorAlbum(String album) {
-        List<Cancion> canciones = cancionRepository.findAll();
-        List<CancionDto> cancionesDto = new ArrayList<>();
-
-        for(Cancion cancion: canciones){
-            if(cancion.getAlbum().equals(album)){
-                cancionesDto.add(CancionMapper.mapToCancionDto(cancion, new CancionDto()));
-            }
-        }
-        return cancionesDto;
+    public List<CancionDto> buscarCancionPorAlbum(String album){
+        return CancionMapper.mapToCancionesDto(cancionRepository.buscarCancionPorAlbum(album), new ArrayList<>());
     }
 
     @Override
@@ -92,22 +84,22 @@ public class CancionServiceImpl implements CancionService {
         ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idLista)
                 .orElseThrow(()-> new NotFoundException("ListaDeReproduccion","idLista",idLista.toString()));
         List<Cancion> listaDeCanciones = listaDeReproduccion.getListaDeCanciones();
-        Cancion cancionParaEliminar = null;
+        Cancion cancionAEliminar = null;
 
         for (Cancion cancion : listaDeCanciones) {
             if (cancion.getIdCancion().equals(idCancion)) {
-                cancionParaEliminar = cancion;
+                cancionAEliminar = cancion;
                 break;
             }
         }
 
-        if (cancionParaEliminar != null) {
-            listaDeCanciones.remove(cancionParaEliminar);
+        if (cancionAEliminar != null) {
+            listaDeCanciones.remove(cancionAEliminar);
 
-            cancionParaEliminar.getListasDeReproducciones().remove(listaDeReproduccion);
+            cancionAEliminar.getListasDeReproducciones().remove(listaDeReproduccion);
 
             listaDeReproduccionRepository.save(listaDeReproduccion);
-            cancionRepository.save(cancionParaEliminar);
+            cancionRepository.save(cancionAEliminar);
 
             return Boolean.TRUE;
         }

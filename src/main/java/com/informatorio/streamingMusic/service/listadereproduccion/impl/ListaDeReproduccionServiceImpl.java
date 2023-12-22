@@ -31,7 +31,8 @@ public class ListaDeReproduccionServiceImpl implements ListaDeReproduccionServic
     public List<ListaDeReproduccion> crearListasDeReproduccion(List<ListaDeReproduccionDto> listasDeReproduccionDto, Usuario usuario) {
         ListaDeReproduccionMapper.mapToListasDeReproduccion(listasDeReproduccionDto, usuario.getListasDeReproduccion());
 
-        for(int i = 0; i < listasDeReproduccionDto.size(); i++){
+        int size = listasDeReproduccionDto.size();
+        for(int i = 0; i < size; i++){
             usuario.getListasDeReproduccion().get(i).setIdLista(UUID.randomUUID());
             usuario.getListasDeReproduccion().get(i).setCreadoEn(LocalDateTime.now());
             usuario.getListasDeReproduccion().get(i).setCreadoPor(usuario.getNombre());

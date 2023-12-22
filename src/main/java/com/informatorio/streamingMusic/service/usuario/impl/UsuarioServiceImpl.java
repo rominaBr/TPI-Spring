@@ -1,9 +1,11 @@
 package com.informatorio.streamingMusic.service.usuario.impl;
 
+import com.informatorio.streamingMusic.dominio.ListaDeReproduccion;
 import com.informatorio.streamingMusic.dominio.Usuario;
 import com.informatorio.streamingMusic.dto.usuario.UsuarioDto;
 import com.informatorio.streamingMusic.exception.GlobalExceptionHandler;
 import com.informatorio.streamingMusic.exception.NotFoundException;
+import com.informatorio.streamingMusic.mapper.listadereproduccion.ListaDeReproduccionMapper;
 import com.informatorio.streamingMusic.mapper.usuario.UsuarioMapper;
 import com.informatorio.streamingMusic.repository.usuario.UsuarioRepository;
 import com.informatorio.streamingMusic.service.listadereproduccion.ListaDeReproduccionService;
@@ -35,6 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         try {
             usuarioRepository.save(nuevoUsuario);
             listaDeReproduccionService.crearListasDeReproduccion(usuarioDto.getListasDeReproduccionDto(),nuevoUsuario);
+
         }
         catch (DataIntegrityViolationException e){
             throw e;
@@ -53,16 +56,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         return usuarioDto;
     }
 
-    @Override
-    public List<UsuarioDto> obtenerTodosLosUsuarios() {
 
-        return null;
-    }
 
-    @Override
-    public boolean eliminarUsuarioPorId(UUID idUsuario) {
-        Usuario usuario = usuarioRepository.findById(idUsuario)
-                .orElseThrow(()-> new NotFoundException("Usuario","idUsuario",idUsuario.toString()));
-        return false;
-    }
+
 }

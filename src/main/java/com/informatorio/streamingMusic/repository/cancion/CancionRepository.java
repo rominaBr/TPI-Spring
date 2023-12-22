@@ -1,6 +1,7 @@
 package com.informatorio.streamingMusic.repository.cancion;
 
 import com.informatorio.streamingMusic.dominio.Cancion;
+import com.informatorio.streamingMusic.dto.cancion.CancionDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,4 +22,10 @@ public interface CancionRepository extends JpaRepository<Cancion, UUID> {
             "(:artista IS NULL OR c.artista.nombreArtista LIKE %:artista%) AND " +
             "(:album IS NULL OR c.album LIKE %:album%)")
     List<Cancion> buscarCancionesAleatorias(String titulo, String genero, String artista, String album);
+
+    @Query("SELECT c FROM Cancion c WHERE c.artista.nombreArtista =:nombreArtista")
+    Cancion buscarCancionPorNombre(String nombre);
+
+    @Query("SELECT c FROM Cancion c WHERE c.album =:album")
+    List<Cancion> buscarCancionPorAlbum(String album);
 }
