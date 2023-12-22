@@ -29,44 +29,6 @@ public class CancionServiceImpl implements CancionService {
         cancionRepository.save(nuevaCancion);
     }
 
-    @Override
-    public List<CancionDto> buscarCancionPorTitulo(String nombreCancion) {
-        List<Cancion> canciones = cancionRepository.findAll();
-        List<CancionDto> cancionesDto = new ArrayList<>();
-
-        for(Cancion cancion: canciones){
-            if(cancion.getNombreCancion().equals(nombreCancion)){
-                cancionesDto.add(CancionMapper.mapToCancionDto(cancion, new CancionDto()));
-            }
-        }
-        return cancionesDto;
-    }
-
-    @Override
-    public List<CancionDto> buscarCancionPorGenero(String genero) {
-        List<Cancion> canciones = cancionRepository.findAll();
-        List<CancionDto> cancionesDto = new ArrayList<>();
-
-        for(Cancion cancion: canciones){
-            if(cancion.getGenero().getNombreGenero().equals(genero)){
-                cancionesDto.add(CancionMapper.mapToCancionDto(cancion, new CancionDto()));
-            }
-        }
-        return cancionesDto;
-    }
-
-    @Override
-    public List<CancionDto> buscarCancionPorArtista(String artista) {
-        List<Cancion> canciones = cancionRepository.findAll();
-        List<CancionDto> cancionesDto = new ArrayList<>();
-
-        for(Cancion cancion: canciones){
-            if(cancion.getArtista().getNombreArtista().equals(artista)){
-                cancionesDto.add(CancionMapper.mapToCancionDto(cancion, new CancionDto()));
-            }
-        }
-        return cancionesDto;
-    }
 
     @Override
     public List<CancionDto> buscarCancionPorAlbum(String album) {
