@@ -20,4 +20,6 @@ public interface ListaDeReproduccionService {
     List<ListaDeReproduccionDto> listarListasPorUsuario(UUID idUsuario);
 
     void actualizarListaDeReproduccion(ListaDeReproduccionDto listaDeReproduccionDto);
+
+    boolean actualizarEstadoDeListas(UUID idLista, boolean repetir, boolean aleatoria, boolean publica);
 }

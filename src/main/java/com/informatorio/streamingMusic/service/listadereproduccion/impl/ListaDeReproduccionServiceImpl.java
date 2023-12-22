@@ -73,4 +73,17 @@ public class ListaDeReproduccionServiceImpl implements ListaDeReproduccionServic
         listaDeReproduccionRepository.save(ListaDeReproduccionMapper.mapToListaDeReproduccion(listaDeReproduccionDto, new ListaDeReproduccion()));
 
     }
+
+    @Override
+    public boolean actualizarEstadoDeListas(UUID idLista, boolean repetir, boolean aleatoria, boolean publica) {
+        ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idLista)
+                .orElseThrow(()-> new NotFoundException("ListaDeReproduccion","idLista",idLista.toString()));
+        listaDeReproduccion.setRepetir(repetir);
+        listaDeReproduccion.setAleatoria(aleatoria);
+        listaDeReproduccion.setPublica(publica);
+
+        listaDeReproduccionRepository.save(listaDeReproduccion);
+
+        return Boolean.TRUE;
+    }
 }

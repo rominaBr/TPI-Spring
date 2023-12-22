@@ -7,6 +7,7 @@ import com.informatorio.streamingMusic.dto.respuesta.RespuestaDto;
 import com.informatorio.streamingMusic.repository.listadereproduccion.ListaDeReproduccionRepository;
 import com.informatorio.streamingMusic.service.listadereproduccion.ListaDeReproduccionService;
 import lombok.AllArgsConstructor;
+import org.hibernate.validator.cfg.defs.UUIDDef;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,26 @@ public class ListaDeReproduccionController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(new RespuestaDto(ConstantsUtils.STATUS_201,ConstantsUtils.MESSAGE_201));
+    }
+
+    @PutMapping("/estados/{idLista}")
+    public ResponseEntity<RespuestaDto> actulizarEstadosDeListas(
+            @PathVariable(name="idLista")UUID idLista,
+            @RequestParam(name="repetir") boolean repetir,
+            @RequestParam(name="aleatoria") boolean aleatoria ,
+            @RequestParam(name="publica") boolean publica
+    ){
+        boolean fueActualizado = listaDeReproduccionService.actualizarEstadoDeListas(idLista,repetir, aleatoria, publica);
+
+        if (fueActualizado){
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(new RespuestaDto(ConstantsUtils.STATUS_200,ConstantsUtils.MESSAGE_200));
+        }else {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new RespuestaDto(ConstantsUtils.STATUS_500,ConstantsUtils.MESSAGE_500));
+        }
     }
 
 
