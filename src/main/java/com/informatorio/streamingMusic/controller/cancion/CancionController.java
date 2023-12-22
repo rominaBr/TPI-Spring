@@ -69,4 +69,9 @@ public class CancionController {
     public List<CancionDto> buscarCancionPorAlbum(@PathVariable(name = "album")String album){
         return cancionService.buscarCancionPorAlbum(album);
     }
+
+    @GetMapping("{idLista}")
+    public List<CancionDto> listarCancionesPorIdLista(@PathVariable(name="idLista") UUID idLIsta){
+        return cancionService.listarCancionesPorIdLista(idLIsta);
+    }
 }

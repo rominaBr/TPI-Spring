@@ -77,6 +77,15 @@ public class CancionServiceImpl implements CancionService {
         return Boolean.TRUE;
     }
 
+    @Override
+    public List<CancionDto> listarCancionesPorIdLista(UUID idLIsta) {
+        ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idLIsta)
+                .orElseThrow(() -> new NotFoundException("ListaDeReproduccion","idLista",idLIsta.toString()));
+
+        return CancionMapper.mapToCancionesDto(listaDeReproduccion.getListaDeCanciones(), new ArrayList<>());
+
+
+    }
 
 
 }

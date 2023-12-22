@@ -18,4 +18,5 @@ public interface CancionService {
     List<CancionDto> buscarCancionesAleatorias(String titulo, String genero, String artista, String album);
 
     boolean agregarCacionesAListaDeUsuario(UUID idUsuario,  UUID idLista, List<CancionDto> canciones);
+    List<CancionDto> listarCancionesPorIdLista(UUID idLIsta);
 }
