@@ -58,6 +58,8 @@ public class ListaDeReproduccionServiceImpl implements ListaDeReproduccionServic
         nuevaLista.setUsuario(usuario);
         nuevaLista.setActualizadoEn(LocalDateTime.now());
         nuevaLista.setActualizadoPor(usuario.getNombre());
+        nuevaLista.setCreadoEn(LocalDateTime.now());
+        nuevaLista.setCreadoPor(usuario.getNombre());
         usuario.getListasDeReproduccion().add(nuevaLista);
         listaDeReproduccionRepository.save(nuevaLista);
         usuarioRepository.save(usuario);
