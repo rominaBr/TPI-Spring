@@ -29,6 +29,8 @@ public class UsuarioController {
                 .body(new RespuestaDto(ConstantsUtils.STATUS_201,ConstantsUtils.MESSAGE_201));
     }
 
+
+
     @GetMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDto> obtenerUsuarioPorId(@PathVariable(name="idUsuario")UUID idUsuario){
         UsuarioDto usuarioDto = usuarioService.obtenerUsuarioPorId(idUsuario);

@@ -1,6 +1,7 @@
 package com.informatorio.streamingMusic.dto.usuario;
 
 import com.informatorio.streamingMusic.dominio.ListaDeReproduccion;
+import com.informatorio.streamingMusic.dto.listadereproduccion.ListaDeReproduccionDto;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,6 +14,6 @@ public class UsuarioDto {
 
     private String nombreUsuario;
 
-    private List<ListaDeReproduccion> listasDeReproduccion = new ArrayList<>();
+    private List<ListaDeReproduccionDto> listasDeReproduccionDto = new ArrayList<>();
 
 }

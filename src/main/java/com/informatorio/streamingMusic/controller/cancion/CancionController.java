@@ -27,26 +27,13 @@ public class CancionController {
                 .body(new RespuestaDto(ConstantsUtils.STATUS_201, ConstantsUtils.MESSAGE_201));
     }
 
-    @GetMapping("/titulo/{nombreCancion}")
-    public List<CancionDto> buscarCancionPorTitulo(@PathVariable(name = "nombreCancion")String nombreCancion){
-        return cancionService.buscarCancionPorTitulo(nombreCancion);
-    }
-
-    @GetMapping("/genero/{genero}")
-    public List<CancionDto> buscarCancionPorGenero(@PathVariable(name = "genero")String genero){
-        return cancionService.buscarCancionPorGenero(genero);
-    }
-
-    @GetMapping("/artista/{artista}")
-    public List<CancionDto> buscarCancionPorArtista(@PathVariable(name = "artista")String artista){
-        return cancionService.buscarCancionPorArtista(artista);
-    }
 
     @GetMapping("/artista/ranking/{artista}")
     public List<CancionDto> buscarCancionPorArtistaOrdenadaPorRanking(@PathVariable(name = "artista")String artista){
         return cancionService.buscarCancionPorArtistaOrdenadaPorRanking(artista);
     }
 
+    //cambiar
     @GetMapping("/album/{album}")
     public List<CancionDto> buscarCancionPorAlbum(@PathVariable(name = "album")String album){
         return cancionService.buscarCancionPorAlbum(album);

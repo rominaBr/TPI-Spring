@@ -1,14 +1,17 @@
 package com.informatorio.streamingMusic.service.listadereproduccion;
 
 
+import com.informatorio.streamingMusic.dominio.ListaDeReproduccion;
 import com.informatorio.streamingMusic.dominio.Usuario;
 import com.informatorio.streamingMusic.dto.listadereproduccion.ListaDeReproduccionDto;
 
+import java.util.List;
+
 public interface ListaDeReproduccionService {
 
-    void crearListaDeReproduccion(ListaDeReproduccionDto listaDeReproduccionDto, Usuario usuario);
+    List<ListaDeReproduccion> crearListasDeReproduccion(List<ListaDeReproduccionDto> listasDeReproduccionDto, Usuario usuario);
 
-    ListaDeReproduccionDto buscarListaDeReproduccionPorNombre(String nombre);
+    List<ListaDeReproduccionDto> buscarListaDeReproduccionPorNombre(String nombre);
 
 
 }

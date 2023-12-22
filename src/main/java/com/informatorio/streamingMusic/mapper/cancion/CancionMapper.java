@@ -34,13 +34,13 @@ public class CancionMapper {
         return (List<Cancion>) canciones;
     }
 
-    public static List<Cancion> mapToCancionesDto(Collection<Cancion> canciones, Collection<CancionDto> cancionesDto){
+    public static List<CancionDto> mapToCancionesDto(Collection<Cancion> canciones, Collection<CancionDto> cancionesDto){
         for (Cancion cancion: canciones) {
             cancionesDto.add(
                     mapToCancionDto(cancion,new CancionDto())
             );
         }
-        return (List<Cancion>) canciones;
+        return (List<CancionDto>) cancionesDto;
     }
 
     public static CancionDto mapToCancionDto(Cancion cancion, CancionDto cancionDto){

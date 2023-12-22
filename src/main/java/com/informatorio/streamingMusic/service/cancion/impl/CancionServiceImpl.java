@@ -86,18 +86,9 @@ public class CancionServiceImpl implements CancionService {
 
     @Override
     public List<CancionDto> buscarCancionPorArtistaOrdenadaPorRanking(String artista) {
-        List<CancionDto> cancionesDto = buscarCancionPorArtista(artista);
-        cancionesDto.sort(new Comparator<CancionDto>() {
-            @Override
-            public int compare(CancionDto o1, CancionDto o2) {
-                Integer cancion1 = o1.getRanking();
-                Integer cancion2 = o2.getRanking();
 
-                return cancion2.compareTo(cancion1);
-            }
-        });
+        return CancionMapper.mapToCancionesDto(cancionRepository.buscarCancionPorArtistaOrdenadaPorRanking(artista), new ArrayList<>());
 
-        return cancionesDto;
     }
 
 

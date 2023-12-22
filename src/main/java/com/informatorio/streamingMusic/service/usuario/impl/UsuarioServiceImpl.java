@@ -6,6 +6,7 @@ import com.informatorio.streamingMusic.exception.GlobalExceptionHandler;
 import com.informatorio.streamingMusic.exception.NotFoundException;
 import com.informatorio.streamingMusic.mapper.usuario.UsuarioMapper;
 import com.informatorio.streamingMusic.repository.usuario.UsuarioRepository;
+import com.informatorio.streamingMusic.service.listadereproduccion.ListaDeReproduccionService;
 import com.informatorio.streamingMusic.service.usuario.UsuarioService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,9 @@ import java.util.UUID;
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final ListaDeReproduccionService listaDeReproduccionService;
 
+    @Transactional
     @Override
     public void crearUsuario(UsuarioDto usuarioDto) {
         Usuario nuevoUsuario = UsuarioMapper.mapToUsuario(usuarioDto, new Usuario());
@@ -31,13 +34,14 @@ public class UsuarioServiceImpl implements UsuarioService {
         nuevoUsuario.setCreadoEn(LocalDateTime.now());
         try {
             usuarioRepository.save(nuevoUsuario);
+            listaDeReproduccionService.crearListasDeReproduccion(usuarioDto.getListasDeReproduccionDto(),nuevoUsuario);
         }
         catch (DataIntegrityViolationException e){
             throw e;
         }
 
-
     }
+
 
     @Override
     public UsuarioDto obtenerUsuarioPorId(UUID idUsuario) {
@@ -45,7 +49,6 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .orElseThrow(()-> new NotFoundException("Usuario","idUsuario",idUsuario.toString()));
 
         UsuarioDto usuarioDto = UsuarioMapper.mapToUsuarioDto(usuario, new UsuarioDto());
-        //cargar listas de reproduccion
 
         return usuarioDto;
     }
