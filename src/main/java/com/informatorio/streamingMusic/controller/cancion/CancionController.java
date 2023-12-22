@@ -52,7 +52,7 @@ public class CancionController {
     @DeleteMapping
     public ResponseEntity<RespuestaDto> eliminarCancionDeLista(
             @RequestParam(name="idLista") UUID idLista,
-            @RequestParam(name="idCacion") UUID idCancion
+            @RequestParam(name="idCancion") UUID idCancion
     ){
         boolean fueEliminado = cancionService.eliminarCancionDeLista(idLista, idCancion);
 
