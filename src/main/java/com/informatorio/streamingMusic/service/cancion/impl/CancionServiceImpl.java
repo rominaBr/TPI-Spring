@@ -62,7 +62,7 @@ public class CancionServiceImpl implements CancionService {
     }
 
     @Override
-    public boolean agregarCacionesAListaDeUsuario(UUID idUsuario, UUID idLista, List<CancionDto> canciones) {
+    public boolean agregarCacionesALista(UUID idLista, List<CancionDto> canciones) {
         ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idLista)
                 .orElseThrow(() -> new NotFoundException("Lista", "idLista", idLista.toString()));
 

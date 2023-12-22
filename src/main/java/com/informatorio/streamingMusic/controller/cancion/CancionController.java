@@ -31,12 +31,11 @@ public class CancionController {
 
     @Transactional
     @PutMapping
-    public ResponseEntity<RespuestaDto> agregarCacionesAListaDeUsuario(
+    public ResponseEntity<RespuestaDto> agregarCacionesALista(
             @RequestBody List<CancionDto> cancionDto,
-            @RequestParam(name="idUsuario") UUID idUsuario,
             @RequestParam(name="idLista")UUID idLista
             ){
-        boolean fueActualizado = cancionService.agregarCacionesAListaDeUsuario(idUsuario, idLista, cancionDto);
+        boolean fueActualizado = cancionService.agregarCacionesALista(idLista, cancionDto);
 
         if (fueActualizado){
             return ResponseEntity
