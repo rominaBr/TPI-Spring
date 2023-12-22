@@ -75,21 +75,6 @@ public class CancionServiceImpl implements CancionService {
         return  CancionMapper.mapToCancionesDto(cancionesAleatorias, new ArrayList<>());
     }
 
-    /*@Override
-    public boolean agregarCacionesALista(UUID idLista, List<CancionDto> canciones) {
-        ListaDeReproduccion listaDeReproduccion = listaDeReproduccionRepository.findById(idLista)
-                .orElseThrow(() -> new NotFoundException("Lista", "idLista", idLista.toString()));
-
-        List<Cancion> cancionesEntidad = CancionMapper.mapToCanciones(canciones, new ArrayList<>());
-
-        cancionRepository.saveAll(cancionesEntidad);
-
-        listaDeReproduccion.getListaDeCanciones().addAll(cancionesEntidad);
-
-        listaDeReproduccionRepository.save(listaDeReproduccion);
-
-        return Boolean.TRUE;
-    }*/
 
     @Override
     public boolean agregarCacionesALista(UUID idLista, List<CancionDto> cancionesDto) {
